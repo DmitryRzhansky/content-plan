@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Контент-план - Подушкин лес</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" rel="stylesheet"/>
+<style>
+    :root {
+      --page: #f1f2ef;
+      --card: #ffffff;
+      --text: #101210;
+      --muted: #626761;
+      --line: #d6d9d3;
+      --soft: #f6f7f4;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background: var(--page);
+      color: var(--text);
+      font-family: "Montserrat", Arial, sans-serif;
+      font-size: 16px;
+      line-height: 1.72;
+      font-weight: 400;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    .tabs-bar {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: rgba(241, 242, 239, 0.92);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .tabs {
+      width: min(1060px, calc(100% - 40px));
+      margin: 0 auto;
+      display: flex;
+      gap: 8px;
+      padding: 14px 0;
+    }
+
+    .tab {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 16px;
+      border: 1px solid var(--line);
+      background: #fff;
+      color: var(--text);
+      font: inherit;
+      font-size: 14px;
+      font-weight: 500;
+      letter-spacing: -0.01em;
+      cursor: pointer;
+      border-radius: 8px;
+      transition: border-color .15s ease, background .15s ease, color .15s ease;
+    }
+
+    .tab:hover {
+      border-color: #b8bcb4;
+    }
+
+    .tab.is-active {
+      border-color: #2f5a45;
+      background: #edf3ef;
+      color: #1d3a2c;
+    }
+
+    .tab-icons {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .tab-icon {
+      width: 18px;
+      height: 18px;
+      object-fit: contain;
+      display: block;
+      flex: 0 0 auto;
+    }
+
+    .tab-panel[hidden] {
+      display: none;
+    }
+
+    main {
+      width: min(1060px, calc(100% - 40px));
+      margin: 0 auto;
+      padding: 36px 0 72px;
+    }
+
+    article {
+      --accent: #2f5a45;
+      --accent-soft: #edf3ef;
+      position: relative;
+      margin: 0 0 28px;
+      padding: 34px 38px 38px;
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-top: 5px solid var(--accent);
+      border-radius: 0 0 8px 8px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.035);
+      overflow: hidden;
+    }
+
+    .tab-panel article:nth-child(1) { --accent: #315d47; --accent-soft: #edf4ef; }
+    .tab-panel article:nth-child(2) { --accent: #8a6237; --accent-soft: #f7f1e9; }
+    .tab-panel article:nth-child(3) { --accent: #456477; --accent-soft: #edf3f6; }
+    .tab-panel article:nth-child(4) { --accent: #526a7a; --accent-soft: #eef3f6; }
+    .tab-panel article:nth-child(5) { --accent: #7a594b; --accent-soft: #f6efec; }
+    .tab-panel article:nth-child(6) { --accent: #5b6644; --accent-soft: #f1f3eb; }
+    .tab-panel article:nth-child(7) { --accent: #595873; --accent-soft: #f0f0f5; }
+
+    .article-head {
+      display: block;
+      margin: 0 0 20px;
+      padding: 0;
+      border: 0;
+    }
+
+    .article-meta {
+      min-height: 34px;
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .article-number {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 46px;
+      height: 30px;
+      padding: 0 10px;
+      border: 1px solid var(--accent);
+      background: var(--accent);
+      color: #fff;
+      font-size: 13px;
+      font-weight: 600;
+      line-height: 1;
+      letter-spacing: 0.03em;
+    }
+
+    .icon {
+      width: 34px;
+      height: 34px;
+      border: 1px solid var(--accent);
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      color: var(--accent);
+      background: #fff;
+      font-size: 14px;
+      flex: 0 0 auto;
+    }
+
+    h1 {
+      margin: 0;
+      max-width: 890px;
+      font-size: clamp(27px, 3.2vw, 42px);
+      line-height: 1.17;
+      font-weight: 300;
+      letter-spacing: -0.035em;
+    }
+
+    .post-title {
+      margin: 0 0 24px;
+      padding: 17px 20px;
+      background: var(--accent-soft);
+      border: 1px solid color-mix(in srgb, var(--accent) 28%, white);
+      border-left: 4px solid var(--accent);
+      font-size: clamp(18px, 2vw, 23px);
+      line-height: 1.45;
+      font-weight: 500;
+      color: #171917;
+    }
+
+    .content {
+      margin: 0;
+      max-width: 890px;
+    }
+
+    p {
+      margin: 0 0 16px;
+    }
+
+    p:last-child {
+      margin-bottom: 0;
+    }
+
+    strong {
+      font-weight: 600;
+    }
+
+    h2 {
+      margin: 0 0 10px;
+      font-size: 16px;
+      line-height: 1.45;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      color: var(--accent);
+    }
+
+    ul {
+      margin: 10px 0 18px;
+      padding-left: 22px;
+    }
+
+    li {
+      margin: 7px 0;
+      padding-left: 2px;
+    }
+
+    li::marker {
+      color: var(--accent);
+    }
+
+    .note {
+      margin-top: 26px;
+      padding: 20px 22px;
+      background: #fafbfa;
+      border: 1px solid var(--line);
+      border-left: 4px solid var(--accent);
+    }
+
+    .note h2 {
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    article::after {
+      content: "";
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      width: 56px;
+      height: 56px;
+      border-left: 1px solid color-mix(in srgb, var(--accent) 30%, white);
+      border-top: 1px solid color-mix(in srgb, var(--accent) 30%, white);
+      background: var(--accent-soft);
+      opacity: .65;
+    }
+
+    @media (max-width: 720px) {
+      .tabs {
+        width: min(100% - 24px, 1060px);
+        padding: 12px 0;
+        gap: 6px;
+      }
+
+      .tab {
+        flex: 1;
+        justify-content: center;
+        padding: 10px 12px;
+        font-size: 13px;
+      }
+
+      main {
+        width: min(100% - 24px, 1060px);
+        padding: 24px 0 44px;
+      }
+
+      article {
+        margin-bottom: 18px;
+        padding: 24px 20px 26px;
+        border-radius: 0 0 6px 6px;
+      }
+
+      .article-meta {
+        margin-bottom: 12px;
+      }
+
+      h1 {
+        font-size: clamp(25px, 8vw, 34px);
+      }
+
+      .post-title {
+        margin-bottom: 20px;
+        padding: 15px 16px;
+      }
+
+      .note {
+        padding: 17px 16px;
+      }
+
+      body {
+        font-size: 15px;
+        line-height: 1.68;
+      }
+
+      article::after {
+        width: 36px;
+        height: 36px;
+      }
+    }
+
+    @media print {
+      .tabs-bar {
+        display: none;
+      }
+
+      body {
+        background: #fff;
+      }
+
+      main {
+        width: 100%;
+        padding: 0;
+      }
+
+      article {
+        box-shadow: none;
+        break-inside: avoid;
+      }
+
+      .tab-panel[hidden] {
+        display: block !important;
+      }
+    }
+</style>
+</head>
+<body>
+<div class="tabs-bar">
+  <div class="tabs" role="tablist" aria-label="Платформы">
+    <button class="tab is-active" type="button" role="tab" id="tab-max-vk" aria-selected="true" aria-controls="panel-max-vk" data-tab="max-vk">
+      <span class="tab-icons" aria-hidden="true">
+        <img class="tab-icon" src="favicons/max.png" alt=""/>
+      </span>
+      <span>Макс</span>
+      <span aria-hidden="true">/</span>
+      <span class="tab-icons" aria-hidden="true">
+        <img class="tab-icon" src="favicons/vk.png" alt=""/>
+      </span>
+      <span>ВК</span>
+    </button>
+    <button class="tab" type="button" role="tab" id="tab-pinterest" aria-selected="false" aria-controls="panel-pinterest" data-tab="pinterest">
+      <span class="tab-icons" aria-hidden="true">
+        <img class="tab-icon" src="favicons/pinterest.png" alt=""/>
+      </span>
+      <span>Pinterest</span>
+    </button>
+  </div>
+</div>
+
+<main>
+<div class="tab-panel" id="panel-max-vk" role="tabpanel" aria-labelledby="tab-max-vk">
+<article>
+<div class="article-head"><div class="article-meta"><span class="article-number">1.</span><div aria-hidden="true" class="icon"><i class="fa-solid fa-volume-low"></i></div></div><h1>Тишина и события на одной территории</h1></div>
+<div class="post-title">Можно ли проводить свадьбу в лесу и не мешать тем, кто приехал за тишиной?</div>
+<div class="content">
+<p>В проекте заложены разные сценарии: размещение гостей, отдых и будущие событийные форматы, но это создает реальную практическую проблему: человек на свадьбе и человек, который лег спать в домике, хотят от одной территории противоположных вещей.</p>
+<p>Публикация должна быть не про "у нас будут свадьбы", а про то, <strong>как генеральный план должен разводить шумные и тихие функции</strong>: расстояние, направление звука, посадки, расположение домов относительно зоны мероприятий, движение людей ночью.</p>
+<div class="note">
+<h2>Необходимая информация:</h2>
+<p>Фрагмент генплана с будущей верандой/кафе и ближайшими домами. <br><br>Комментарий Оксаны: учитывалось ли акустическое разделение и каким образом.</p>
+</div>
+</div>
+</article>
+<article>
+<div class="article-head"><div class="article-meta"><span class="article-number">2.</span><div aria-hidden="true" class="icon"><i class="fa-solid fa-utensils"></i></div></div><h1>Почему проблему с питанием надо решить до открытия</h1></div>
+<div class="post-title">Дом построить мало. Что гость будет есть утром?</div>
+<div class="content">
+<p>В первой очереди предусмотрены дома, бани, беседки, парковка и другие объекты, но полноценное кафе находится дальше по развитию проекта. На раннем было названо, что отсутствие кафе - проблема и рассматривался отдельный партнер по организации питания как возможное решение.</p>
+<p>Получается публикация о настоящей проектной дилемме: <strong>номерной фонд можно построить раньше ресторана, а потребность человека в завтраке появляется с первого гостя</strong>.</p>
+<div class="note">
+<h2>Необходимая информация:</h2>
+<p>Обязательно уточнить <strong>актуальное состояние на сентябрь 2026 года</strong>: осталась ли идея малого кафе/павильона в первой очереди, есть ли переговоры с ресторанными компаниями, рассматриваются ли завтраки, доставка, кухня при магазине.</p>
+<p>Без этого публикацию размещать нельзя - апрельская информация могла измениться.</p>
+</div>
+</div>
+</article>
+<article>
+<div class="article-head"><div class="article-meta"><span class="article-number">3.</span><div aria-hidden="true" class="icon"><i class="fa-regular fa-lightbulb"></i></div></div><h1>Как осветить лес и не превратить его в парковку</h1></div>
+<div class="post-title">Лес ночью должен оставаться лесом</div>
+<div class="content">
+<p>Дорожки должны быть безопасными после захода солнца, но просто поставить яркие фонари через каждые десять метров - плохое решение для природной территории. Можно рассказать о рассматриваемой логике бережного наружного освещения: светить туда, где идет человек, ограничивать лишний свет вверх и в лес, подсвечивать развилки и опасные места вместо равномерной засветки всего участка.</p>
+<div class="note">
+<h2>Необходимая информация:</h2>
+<p>Есть ли уже раздел по наружному освещению в проектной документации. Если есть - тип светильников, план, высота, предполагаемые участки подсветки. Если нет - комментарий архитектора о принципе.</p>
+</div>
+</div>
+</article>
+<article>
+<div class="article-head"><div class="article-meta"><span class="article-number">4.</span><div aria-hidden="true" class="icon"><i class="fa-regular fa-snowflake"></i></div></div><h1>Что на самом деле означает "круглогодично" в Хабаровске</h1></div>
+<div class="post-title">Круглогодичная база проверяется не летом</div>
+<div class="content">
+<p>Красивый дом в августе сделать сравнительно просто. Для круглогодичного объекта важнее другие вопросы: отопление, теплопотери, промерзание входных зон, снег, наледь на дорожках, работа воды и инженерных систем зимой.</p>
+<p>Это можно превратить в публикацию из конкретных проектных вопросов: <strong>что должно быть предусмотрено в доме и на территории, чтобы январь был штатным режимом, а не испытанием</strong>.</p>
+<div class="note">
+<h2>Необходимая информация:</h2>
+<p>Конструктив стен, кровли и пола, проект отопления, решение по воде зимой, входным группам, снегу и наледи. Желательно дать инженеру пять конкретных вопросов и построить публикацию на его ответах.</p>
+</div>
+</div>
+</article>
+<article>
+<div class="article-head"><div class="article-meta"><span class="article-number">5.</span><div aria-hidden="true" class="icon"><i class="fa-regular fa-calendar-days"></i></div></div><h1>Почему дата начала строительства влияет на стоимость</h1></div>
+<div class="post-title">У стройки есть календарь, а не только срок</div>
+<div class="content">
+<p>Вместо сомнительного обещания "этап построим за несколько месяцев" рассказать про производственный график: закупка, изготовление, доставка, подготовка площадки и монтаж должны состыковываться с сезоном.</p>
+<p>Сроки нужны не только для понимания даты окончания, но и чтобы не создавать проекту лишние затраты из-за неудачной последовательности поставок и работ.</p>
+<div class="note">
+<h2>Необходимая информация:</h2>
+<ul>
+<li>какие элементы первой очереди реально рассматриваются к производству вне Хабаровска;</li>
+<li>Россия / Китай / Южная Корея - что подтверждено, а что пока вариант;</li>
+<li>какие варианты перевозки реально считались;</li>
+<li>есть ли хотя бы ориентировочное сравнение стоимости;</li>
+<li>какие работы зависят от сезона.</li>
+</ul>
+</div>
+</div>
+</article>
+<article>
+<div class="article-head"><div class="article-meta"><span class="article-number">6.</span><div aria-hidden="true" class="icon"><i class="fa-solid fa-car"></i></div></div><h1>Почему парковка - это часть отдыха</h1></div>
+<div class="post-title">До домика еще надо нормально доехать</div>
+<div class="content">
+<p>В загородном проекте впечатление гостя начинается не с интерьера. Оно начинается с последних километров дороги: где повернуть, где оставить машину, как выгрузить вещи, насколько далеко идти до дома, что происходит зимой и в темноте.</p>
+<div class="note">
+<h2>Необходимая информация:</h2>
+<p>Фото существующей подъездной дороги, схема первой парковки, расстояние от нее до домов, принцип движения автомобилей внутри территории, план второго подъезда.</p>
+</div>
+</div>
+</article>
+<article>
+<div class="article-head"><div class="article-meta"><span class="article-number">7.</span><div aria-hidden="true" class="icon"><i class="fa-regular fa-registered"></i></div></div><h1>Почему товарный знак появился раньше базы</h1></div>
+<div class="post-title">"Подушкин лес" зарегистрировали еще до стройки. Зачем?</div>
+<div class="content">
+<p>Обычно в соцсетях показывают дом, фундамент или генплан. Но у проекта есть еще одна линия развития: юридическая.</p>
+<p>Можно объяснить нормальным языком, почему название и товарный знак проекта начали оформлять раньше физического объекта.</p>
+<div class="note">
+<h2>Необходимая информация:</h2>
+<p>Скан свидетельства или аккуратный фрагмент документа, исходник логотипа и, если есть, ранние версии логотипа. Еще лучше - короткий комментарий Евгения или Эльвиры: когда появилось название и почему решили сразу его зарегистрировать.</p>
+</div>
+</div>
+</article>
+</div>
+
+<div class="tab-panel" id="panel-pinterest" role="tabpanel" aria-labelledby="tab-pinterest" hidden>
+<article>
+<div class="article-head"><div class="article-meta"><span class="article-number">1.</span><div aria-hidden="true" class="icon"><i class="fa-solid fa-person-walking"></i></div></div><h1>Ретрит в лесу без перегруженной программы</h1></div>
+<div class="post-title">Иногда лучший сценарий отдыха - когда от тебя ничего не требуется</div>
+<div class="content">
+<p>В проекте предусмотрены площадки для ретритов. Для Pinterest эту тему лучше раскрыть не как "еще одну услугу", а как отдельный сценарий территории: лес, небольшая группа, спокойное пространство и минимум внешних раздражителей.</p>
+<p>Публикацию можно построить вокруг вопроса, <strong>каким должно быть место для тихого группового отдыха на природе</strong>: без большой сцены, плотной программы и ощущения городского мероприятия, перенесенного в лес.</p>
+<div class="note"><h2>Необходимая информация:</h2><p>Где на генеральном плане предполагается ретрит-зона, примерная вместимость, какие форматы там рассматриваются и нужна ли отдельная малая архитектурная форма или навес.</p></div>
+</div>
+</article>
+
+<article>
+<div class="article-head"><div class="article-meta"><span class="article-number">2.</span><div aria-hidden="true" class="icon"><i class="fa-solid fa-person-skiing-nordic"></i></div></div><h1>Лыжный маршрут как часть зимнего отдыха</h1></div>
+<div class="post-title">Зимой лес не должен превращаться просто в красивый фон за окном</div>
+<div class="content">
+<p>На дополнительной площадке проекта площадью 7,4 га планируется лыжня. Это дает отдельную тему для Pinterest: не "зимняя база отдыха" вообще, а конкретный маршрут, который делает территорию активной и после снегопада.</p>
+<p>Пост можно посвятить тому, <strong>как прогулочная территория меняется по сезону</strong>: летом это лесной маршрут, зимой - пространство для лыжной прогулки без необходимости выезжать на отдельную спортивную базу.</p>
+<div class="note"><h2>Необходимая информация:</h2><p>Предполагаемая длина и схема лыжни, будет ли маршрут кольцевым, где планируются старт и финиш, потребуется ли прокат или лыжня рассматривается только как инфраструктура.</p></div>
+</div>
+</article>
+
+<article>
+<div class="article-head"><div class="article-meta"><span class="article-number">3.</span><div aria-hidden="true" class="icon"><i class="fa-solid fa-motorcycle"></i></div></div><h1>База как точка старта для мотомаршрута</h1></div>
+<div class="post-title">Не вся инфраструктура отдыха должна находиться внутри одного участка</div>
+<div class="content">
+<p>В планах масштабирования предусмотрены маршруты для мотопутешествий. Это позволяет показать другую логику загородного комплекса: часть впечатлений начинается на базе, но продолжается уже за ее пределами.</p>
+<p>Для Pinterest тема может работать как визуальный маршрут: <strong>старт у базы → лесная дорога → маршрут → возвращение к дому и бане</strong>. Такой пин не повторяет публикации про домики или генеральный план, а показывает сценарий целого дня.</p>
+<div class="note"><h2>Необходимая информация:</h2><p>Какие виды техники рассматриваются, есть ли предварительные направления маршрутов, предполагаемая продолжительность поездок и будет ли техника собственной, партнерской или гостевой.</p></div>
+</div>
+</article>
+
+<article>
+<div class="article-head"><div class="article-meta"><span class="article-number">4.</span><div aria-hidden="true" class="icon"><i class="fa-solid fa-palette"></i></div></div><h1>Эко-арт-фестиваль среди деревьев</h1></div>
+<div class="post-title">Что если лес станет не декорацией, а частью выставочного пространства?</div>
+<div class="content">
+<p>На дополнительной территории проекта предусмотрена инфраструктура для регулярных арт-фестивалей экологической направленности. Это самостоятельная тема, которую можно раскрыть через временные инсталляции, маршруты между объектами и искусство, которое не требует капитального выставочного здания.</p>
+<p>Главная мысль поста: <strong>событие может использовать лесную среду, не превращая ее в обычную фестивальную площадку</strong>. Для Pinterest это сильная тема на стыке ландшафта, архитектуры и искусства.</p>
+<div class="note"><h2>Необходимая информация:</h2><p>Какой масштаб фестиваля рассматривается, какие типы арт-объектов допустимы, есть ли уже идеи по временным инсталляциям и как предполагается размещать их относительно деревьев и маршрутов.</p></div>
+</div>
+</article>
+
+<article>
+<div class="article-head"><div class="article-meta"><span class="article-number">5.</span><div aria-hidden="true" class="icon"><i class="fa-solid fa-bullseye"></i></div></div><h1>Спортивный сценарий за пределами основной базы</h1></div>
+<div class="post-title">Отдых на природе - не обязательно только баня, прогулка и шашлык</div>
+<div class="content">
+<p>В программе масштабирования отдельно предусмотрена площадка стендовой стрельбы. Для контент-плана это полезный контраст с тихими форматами отдыха: проект рассчитан не на один тип гостя и не на один сценарий дня.</p>
+<p>Публикацию стоит строить вокруг идеи <strong>разделения спокойной и активной инфраструктуры по территории</strong>: размещение и лесной отдых остаются в одном контуре, специализированная активность - на отдельной площадке.</p>
+<div class="note"><h2>Необходимая информация:</h2><p>Статус идеи, предполагаемое место на дополнительном участке, формат площадки и то, будет ли направление реализовываться собственными силами или с профильным партнером. До уточнения этих данных не писать о площадке как о готовом объекте.</p></div>
+</div>
+</article>
+
+<article>
+<div class="article-head"><div class="article-meta"><span class="article-number">6.</span><div aria-hidden="true" class="icon"><i class="fa-solid fa-fish"></i></div></div><h1>Навесы для рыбалки как малая архитектура</h1></div>
+<div class="post-title">У воды тоже нужна архитектура - только она не должна спорить с берегом</div>
+<div class="content">
+<p>В проекте предусмотрен пруд с навесами для рыбной ловли. Здесь можно уйти от уже использованной темы происхождения водного объекта и показать совершенно другой ракурс - <strong>как выглядит небольшое укрытие у воды, если его проектируют как часть общего ландшафта</strong>.</p>
+<p>Для Pinterest это отдельный архитектурный пин: один навес, место для снастей и сидения, открытый вид на воду, минимум визуального шума.</p>
+<div class="note"><h2>Необходимая информация:</h2><p>Есть ли эскизы навесов, предполагаемые размеры, материал, количество мест и принцип расположения вокруг пруда. Если эскизов нет - нужен комментарий архитектора о предполагаемом формате.</p></div>
+</div>
+</article>
+
+<article>
+<div class="article-head"><div class="article-meta"><span class="article-number">7.</span><div aria-hidden="true" class="icon"><i class="fa-solid fa-person-hiking"></i></div></div><h1>Скай-парк внутри лесного маршрута</h1></div>
+<div class="post-title">Маршрут интереснее, когда часть пути проходит не только по земле</div>
+<div class="content">
+<p>Скай-парк входит в планируемое благоустройство проекта. Для Pinterest его стоит подавать не как абстрактное "развлечение", а как элемент маршрута, который меняет высоту и способ восприятия леса.</p>
+<p>Пост может раскрыть идею <strong>вертикального маршрута между деревьями</strong>: сначала обычная лесная тропа, затем подъем, прохождение участка над землей и возвращение на маршрут.</p>
+<div class="note"><h2>Необходимая информация:</h2><p>Есть ли предварительная схема скай-парка, целевая возрастная группа, предполагаемая высота, протяженность и место на генеральном плане. Если проектирование еще не началось - оформить публикацию именно как концепцию.</p></div>
+</div>
+</article>
+</div>
+</main>
+
+<script>
+(function () {
+  var tabs = Array.prototype.slice.call(document.querySelectorAll('.tab'));
+  var panels = {
+    'max-vk': document.getElementById('panel-max-vk'),
+    'pinterest': document.getElementById('panel-pinterest')
+  };
+
+  function activate(name) {
+    tabs.forEach(function (tab) {
+      var on = tab.getAttribute('data-tab') === name;
+      tab.classList.toggle('is-active', on);
+      tab.setAttribute('aria-selected', on ? 'true' : 'false');
+    });
+    Object.keys(panels).forEach(function (key) {
+      panels[key].hidden = key !== name;
+    });
+  }
+
+  tabs.forEach(function (tab) {
+    tab.addEventListener('click', function () {
+      activate(tab.getAttribute('data-tab'));
+    });
+  });
+})();
+</script>
+</body>
+</html>
